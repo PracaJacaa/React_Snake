@@ -10,10 +10,24 @@ class Game extends React.Component{
             gridSize:[9,9],
             snake:[],
             apple:[],
+            movmentTo: "up",
         };
     }
 
-    
+    Howtomove(){
+        window.addEventListener('W', handleKey(event));
+        window.addEventListener('A', handleKey(event));
+        window.addEventListener('S', handleKey(event));
+        window.addEventListener('D', handleKey(event));
+
+        handleKey =(event)=>{
+            if(event.key === 'W'){
+                console.log('w')
+              }
+            
+        }
+    }
+
     getRandomApple(gridSize){
         let xSize = gridSize[0]
         let ySize = gridSize[1]
