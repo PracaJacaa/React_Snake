@@ -1,41 +1,62 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./index.css";
+import Grid from "./constructors/Grid";
 
 class Game extends React.Component{
     constructor(props){
         super(props);
+        this.state ={
+            gridSize:[9,9],
+            snake:[],
+            apple:[],
+        };
     }
-    render(){
-        return(
-            <></>
-        );
+
+    getRandomApple(gridSize){
+        let xSize = gridSize[0]
+        let ySize = gridSize[1]
+
+        let xApple = this.props.apple[Math.floor(Math.random()*gridSize.length)];
+        let yApple = this.props.apple[Math.floor(Math.random()*gridSize.length)];
+
+        return [xApple,yApple]
     }
+
+    getMiddleOfCordsSnake(gridSize){
+        let xSize = gridSize[0]
+        let ySize = gridSize[1]
+
+        let xMiddle = parseInt(xSize / 2);
+        let yMiddle = parseInt(ySize / 2);
+
+        return [xMiddle, yMiddle];
+
+    }
+
+    componentDidMount() {
+        let ValofmiddleCoordinates = this.getMiddleOfCordsSnake(this.state.gridSize);
+        this.setState({ snake: ValofmiddleCoordinates });
+      }
+
+
+    Randomfood(){
+        let apple = this.props.apple[Math.floor(Math.random()*gameGrid.length)];
+        console.log(apple);
+    }
+
+    render () {
+
+        return (
+                <Grid 
+                    grid={this.props.gameGrid}
+                    snake={this.state.snake}
+                    apple={this.state.apple}
+                />
+               )
+    } 
+
 }
-class Grid extends React.Component{
-    constructor(props){
-        super(props);
-        }
-        render(){
-            const Snake_Game_GridX = Array(7).fill(Array(7));
-            let Gameindex = Xindex + Yindex;
-            return(
-                <>
-                {
-                    Snake_Game_GridX.map((Snake_Game_GridX,Xindex))
-                }
-                <button>siema</button>
-                </>
-            );
-            }
-        }
-       
-class HeadandBody extends React.Component{
-    constructor(props){
-        super(props);
-            }
-            render(){
-                return(<></>
-                );
-            }
-        }
-ReactDOM.render(<Grid/>, document.getElementById("root"));
+
+ReactDOM.render(<Game />, document.getElementById("root"));
+

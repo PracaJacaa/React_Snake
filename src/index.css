@@ -1,0 +1,22 @@
+.grid {
+    display: table;
+  }
+  
+  .grid-row {
+    display: table-row;
+  }
+  
+  .tile {
+    display: table-cell;
+    background-color: #999;
+    padding: 10px;
+    border: 1px solid white;
+  }
+  
+  .tile.snake {
+    background-color: rgb(97, 216, 97);
+  }
+  
+  .tile.apple {
+    background-color: #ff0000;
+  }
