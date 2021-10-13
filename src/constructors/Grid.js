@@ -17,7 +17,7 @@ class Grid extends React.Component{
                         return(
                         <div className="yGrid">
                             {gridY.map((gridX,XIndex) => {
-                               return <Tile X={XIndex} Y={YIndex} snake={this.props.snake}/>
+                               return <Tile X={XIndex} Y={YIndex} snake={this.props.snake} apple={this.props.apple}/>
                             })}
                         </div>
                         )

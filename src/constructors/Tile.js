@@ -10,10 +10,15 @@ class Tile extends React.Component{
         const snakeXCoordinate = this.props.snake[0];
         const snakeYCoordinate = this.props.snake[1];
 
-        let isSnake = this.props.X === snakeXCoordinate && this.props.Y === snakeYCoordinate ? "snake" : "";
-        let className = `tile ${isSnake} `;
-
         
+        const AppleXCoordinate = this.props.apple[0];
+        const AppleYCoordinate = this.props.apple[1];
+
+        let isSnake = this.props.X === snakeXCoordinate && this.props.Y === snakeYCoordinate ? "snake" : "";
+        let isapple = this.props.X === AppleXCoordinate && this.props.Y === AppleYCoordinate ? "apple" : "";
+
+        let className = `tile ${isSnake} ${isapple}`;
+
 
 
         return( <div 

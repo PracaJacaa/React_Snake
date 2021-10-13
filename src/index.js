@@ -13,15 +13,25 @@ class Game extends React.Component{
         };
     }
 
+    
     getRandomApple(gridSize){
         let xSize = gridSize[0]
         let ySize = gridSize[1]
 
-        let xApple = this.props.apple[Math.floor(Math.random()*gridSize.length)];
-        let yApple = this.props.apple[Math.floor(Math.random()*gridSize.length)];
+        let xApple = Math.floor(Math.random()*xSize);
+        let yApple = Math.floor(Math.random()*ySize);
 
-        return [xApple,yApple]
+        let xSnake = this.state.snake[0];
+        let ySnake = this.state.snake[1];
+
+        if(xApple === xSnake && yApple === ySnake){
+            return this.getRandomApple(gridSize)
+        }
+        else {
+            return [xApple,yApple]
+        }
     }
+
 
     getMiddleOfCordsSnake(gridSize){
         let xSize = gridSize[0]
@@ -37,13 +47,11 @@ class Game extends React.Component{
     componentDidMount() {
         let ValofmiddleCoordinates = this.getMiddleOfCordsSnake(this.state.gridSize);
         this.setState({ snake: ValofmiddleCoordinates });
+
+        let ValofrandomApple = this.getRandomApple(this.state.gridSize);
+        this.setState({ apple: ValofrandomApple });
       }
 
-
-    Randomfood(){
-        let apple = this.props.apple[Math.floor(Math.random()*gameGrid.length)];
-        console.log(apple);
-    }
 
     render () {
 
