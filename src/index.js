@@ -3,6 +3,18 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import Grid from "./constructors/Grid";
 
+function arrayEqual(arryOne,arrayTwo){
+    if(arryOne.length !== arrayTwo){
+        return false
+    }
+    for(var i=0 ; i< arryOne.length; i++){
+        if(arryOne[i] != arrayTwo[i]){
+            return false;
+        }
+    }
+    return true
+}
+
 class Game extends React.Component{
     constructor(props){
         super(props);
@@ -11,21 +23,75 @@ class Game extends React.Component{
             snake:[],
             apple:[],
             movmentTo: "up",
+            time:0,
+            points:1
         };
     }
 
-    Howtomove(){
-        window.addEventListener('W', handleKey(event));
-        window.addEventListener('A', handleKey(event));
-        window.addEventListener('S', handleKey(event));
-        window.addEventListener('D', handleKey(event));
+    Crash(){
+        let cordsnake = this.state.snake
+        let cordapple = this.state.apple
 
-        handleKey =(event)=>{
-            if(event.key === 'W'){
-                console.log('w')
-              }
-            
+        if(cordapple === cordsnake){
+            console.log("crash")
+            this.setState({points: +1})
+            this.getRandomApple(gridSize);
         }
+    };
+
+    Howtomove(event){
+        console.log(event);
+        const keyCode = event.code;
+        switch(keyCode){
+            case"KeyW":
+                this.setState({movmentTo: "up"});
+                break;
+
+            case"KeyS":
+            this.setState({movmentTo: "down"});
+            break;
+
+            case"KeyA":
+            this.setState({movmentTo: "left"});
+            break;
+
+            case"KeyD":
+            this.setState({movmentTo: "right"});
+            break;
+        }
+    }
+
+
+    gametick(){
+        // let xSize = gridSize[0]
+        // let ySize = gridSize[1]
+
+        let xSnakePosition = this.state.snake[0];
+        let ySnakePosition = this.state.snake[1];
+
+
+        switch(this.state.movmentTo){
+                // left example
+            case "left":
+                 var newSnakex = xSnakePosition <= 0 ? 8 : xSnakePosition -1
+                this.setState({snake: [newSnakex, ySnakePosition]});
+            break;
+            case "right":
+                // righ example
+                var newSnakex = xSnakePosition >= 8 ? 0 : xSnakePosition +1
+                this.setState({snake: [newSnakex, ySnakePosition]});
+            break;
+            case "down":
+                var newSnakey = ySnakePosition >= 8 ? 0 : ySnakePosition +1
+                this.setState({snake: [xSnakePosition, newSnakey]});
+            break;
+            case "up":    
+                var newSnakey = ySnakePosition <= 0 ? 8 : ySnakePosition -1
+                this.setState({snake: [xSnakePosition, newSnakey]});
+                break;
+            }
+            
+
     }
 
     getRandomApple(gridSize){
@@ -64,7 +130,13 @@ class Game extends React.Component{
 
         let ValofrandomApple = this.getRandomApple(this.state.gridSize);
         this.setState({ apple: ValofrandomApple });
+
+        setInterval(() => this.gametick(), 500)
+        setInterval(() => this.Crash() ,501);
+
+        window.addEventListener('keydown', (event) => this.Howtomove(event));
       }
+
 
 
     render () {
