@@ -3,13 +3,15 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import Grid from "./constructors/Grid";
 
+
 function arrayEqual(arryOne,arrayTwo){
-    if(arryOne.length !== arrayTwo){
-        return false
+
+    if(arryOne.length !== arrayTwo.length){
+        return false;
     }
     for(var i=0 ; i< arryOne.length; i++){
         if(arryOne[i] != arrayTwo[i]){
-            return false;
+        return false;
         }
     }
     return true
@@ -31,11 +33,13 @@ class Game extends React.Component{
     Crash(){
         let cordsnake = this.state.snake
         let cordapple = this.state.apple
+        let points = this.state.points
 
-        if(cordapple === cordsnake){
+        if(arrayEqual(cordsnake,cordapple)){
             console.log("crash")
-            this.setState({points: +1})
-            this.getRandomApple(gridSize);
+            this.setState({points: points + 1})
+            this.getRandomApple()
+            ;
         }
     };
 
@@ -94,9 +98,9 @@ class Game extends React.Component{
 
     }
 
-    getRandomApple(gridSize){
-        let xSize = gridSize[0]
-        let ySize = gridSize[1]
+    getRandomApple(){
+        let xSize = this.state.gridSize[0]
+        let ySize = this.state.gridSize[1]
 
         let xApple = Math.floor(Math.random()*xSize);
         let yApple = Math.floor(Math.random()*ySize);
@@ -105,10 +109,10 @@ class Game extends React.Component{
         let ySnake = this.state.snake[1];
 
         if(xApple === xSnake && yApple === ySnake){
-            return this.getRandomApple(gridSize)
+            return this.getRandomApple()
         }
         else {
-            return [xApple,yApple]
+            this.setState({ apple: [xApple,yApple] }); 
         }
     }
 
@@ -128,11 +132,12 @@ class Game extends React.Component{
         let ValofmiddleCoordinates = this.getMiddleOfCordsSnake(this.state.gridSize);
         this.setState({ snake: ValofmiddleCoordinates });
 
-        let ValofrandomApple = this.getRandomApple(this.state.gridSize);
-        this.setState({ apple: ValofrandomApple });
+        this.getRandomApple();
+
 
         setInterval(() => this.gametick(), 500)
-        setInterval(() => this.Crash() ,501);
+        setInterval(() => this.Crash(), 501)
+        
 
         window.addEventListener('keydown', (event) => this.Howtomove(event));
       }
@@ -146,6 +151,7 @@ class Game extends React.Component{
                     grid={this.props.gameGrid}
                     snake={this.state.snake}
                     apple={this.state.apple}
+                    points={this.state.points}
                 />
                )
     } 

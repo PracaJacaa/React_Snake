@@ -25,7 +25,7 @@ class Tile extends React.Component{
             className={className} 
             id={this.props.X , this.props.Y}>
 
-                {`X ${this.props.X} - Y ${this.props.Y}`}
+                {}
 
                 </div>
             );

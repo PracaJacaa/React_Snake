@@ -13,7 +13,7 @@ class Grid extends React.Component{
         const gameGrid = Array(9).fill(Array(9).fill(null));  
         let snakeX = this.props.snake[0];
         let snakeY = this.props.snake[1];
-        let points = this.props.points
+        let points = this.props.points;
             
             return (
                 <div className="xGrid">
@@ -32,7 +32,6 @@ class Grid extends React.Component{
                 </div>
 
             )           
-
     }
 }
 
