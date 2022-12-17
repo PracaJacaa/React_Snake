@@ -23,6 +23,7 @@ class Game extends React.Component{
         this.state ={
             gridSize:[9,9],
             snake:[],
+            snakeBody:[],
             apple:[],
             movmentTo: "up",
             time:0,
@@ -39,9 +40,15 @@ class Game extends React.Component{
             console.log("crash")
             this.setState({points: points + 1})
             this.getRandomApple()
+            this.MoreBody()
             ;
         }
     };
+
+    MoreBody(){
+        this.setState({snakeBody: [xSnakePosition, xSnakePosition]});
+        
+    }
 
     Howtomove(event){
         console.log(event);
@@ -73,25 +80,29 @@ class Game extends React.Component{
         let xSnakePosition = this.state.snake[0];
         let ySnakePosition = this.state.snake[1];
 
-
+        
         switch(this.state.movmentTo){
                 // left example
             case "left":
                  var newSnakex = xSnakePosition <= 0 ? 8 : xSnakePosition -1
                 this.setState({snake: [newSnakex, ySnakePosition]});
+                console.log(newSnakex, ySnakePosition)
             break;
             case "right":
                 // righ example
                 var newSnakex = xSnakePosition >= 8 ? 0 : xSnakePosition +1
                 this.setState({snake: [newSnakex, ySnakePosition]});
+                console.log(newSnakex,ySnakePosition)
             break;
             case "down":
                 var newSnakey = ySnakePosition >= 8 ? 0 : ySnakePosition +1
                 this.setState({snake: [xSnakePosition, newSnakey]});
+                console.log(newSnakex, ySnakePosition)
             break;
             case "up":    
                 var newSnakey = ySnakePosition <= 0 ? 8 : ySnakePosition -1
                 this.setState({snake: [xSnakePosition, newSnakey]});
+                console.log(newSnakex, ySnakePosition)
                 break;
             }
             
@@ -152,6 +163,7 @@ class Game extends React.Component{
                     snake={this.state.snake}
                     apple={this.state.apple}
                     points={this.state.points}
+                    snakeHead={this.state.snakeHead}
                 />
                )
     } 
