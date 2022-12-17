@@ -40,15 +40,10 @@ class Game extends React.Component{
             console.log("crash")
             this.setState({points: points + 1})
             this.getRandomApple()
-            this.MoreBody()
             ;
         }
     };
 
-    MoreBody(){
-        this.setState({snakeBody: [xSnakePosition, xSnakePosition]});
-        
-    }
 
     Howtomove(event){
         console.log(event);
@@ -80,7 +75,9 @@ class Game extends React.Component{
         let xSnakePosition = this.state.snake[0];
         let ySnakePosition = this.state.snake[1];
 
-        
+        this.setState({snakeBody: [xSnakePosition, ySnakePosition]});
+        console.log("Snake Body pos:" + xSnakePosition, ySnakePosition )
+
         switch(this.state.movmentTo){
                 // left example
             case "left":
@@ -97,12 +94,12 @@ class Game extends React.Component{
             case "down":
                 var newSnakey = ySnakePosition >= 8 ? 0 : ySnakePosition +1
                 this.setState({snake: [xSnakePosition, newSnakey]});
-                console.log(newSnakex, ySnakePosition)
+                console.log(xSnakePosition, newSnakey)
             break;
             case "up":    
                 var newSnakey = ySnakePosition <= 0 ? 8 : ySnakePosition -1
                 this.setState({snake: [xSnakePosition, newSnakey]});
-                console.log(newSnakex, ySnakePosition)
+                console.log(xSnakePosition, newSnakey)
                 break;
             }
             
