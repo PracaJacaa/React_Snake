@@ -24,6 +24,7 @@ class Game extends React.Component{
             gridSize:[9,9],
             snake:[],
             snakeBody:[],
+            unlockBody: false,
             apple:[],
             movmentTo: "up",
             time:0,
@@ -40,6 +41,7 @@ class Game extends React.Component{
             console.log("crash")
             this.setState({points: points + 1})
             this.getRandomApple()
+            this.AddBody()
             ;
         }
     };
@@ -74,9 +76,6 @@ class Game extends React.Component{
 
         let xSnakePosition = this.state.snake[0];
         let ySnakePosition = this.state.snake[1];
-
-        this.setState({snakeBody: [xSnakePosition, ySnakePosition]});
-        console.log("Snake Body pos:" + xSnakePosition, ySnakePosition )
 
         switch(this.state.movmentTo){
                 // left example
@@ -117,6 +116,7 @@ class Game extends React.Component{
         let ySnake = this.state.snake[1];
 
         if(xApple === xSnake && yApple === ySnake){
+            
             return this.getRandomApple()
         }
         else {
@@ -124,6 +124,15 @@ class Game extends React.Component{
         }
     }
 
+    AddBody(){
+        let xSnakePosition = this.state.snake[0];
+        let ySnakePosition = this.state.snake[1];
+        this.setState({unlockBody: true});
+        this.setState({snakeBody: [xSnakePosition, ySnakePosition]});
+        console.log("Snake Body pos:" + xSnakePosition, ySnakePosition )
+        console.log(this.state.snakeBody)
+        console.log(this.state.snake)
+    }
 
     getMiddleOfCordsSnake(gridSize){
         let xSize = gridSize[0]
@@ -160,7 +169,8 @@ class Game extends React.Component{
                     snake={this.state.snake}
                     apple={this.state.apple}
                     points={this.state.points}
-                    snakeHead={this.state.snakeHead}
+                    snakeBody={this.state.snakeBody}
+                    unlockBody={this.state.unlockBody}
                 />
                )
     } 
